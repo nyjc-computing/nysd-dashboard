@@ -1,0 +1,10 @@
+.navbar {
+  background-color: var(--bs-red);
+  margin-bottom: 8px;
+}
+
+.logo {
+  color: var(--bs-light);
+  font-weight: bold;
+  margin-left: 8px;
+}
