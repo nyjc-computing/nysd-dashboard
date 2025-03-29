@@ -1,0 +1,10 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/python:3.11",
+	"features": {
+		"python": {
+			"version": "3.11"
+		}
+	},
+	"postCreateCommand": "pip install poetry && poetry install",
+	"postStartCommand": "npx vscode-tasks run poetry-activate-venv"
+}
