@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<h4>Welcome to the Nanyang System Developers Dashboard!</h4>
+
+<h2 class="h2">Classrooms</h2>
+
+<div class="classrooms">
+  {% for item in crs %}
+  <div class="container pb-2 classBlock">
+    <div class="container p-0 pt-2 pb-2">
+      <p style="font-weight: bold; display: inline;">{{ item["name"] }}</p>
+      <p class="text-secondary" style="display: inline;">(ID: {{ item["id"] }})</p>
+    </div>
+
+    <a href="/classrooms/{{ item['id'] }}" class="btn btn-primary">Go to Assignments</a>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
