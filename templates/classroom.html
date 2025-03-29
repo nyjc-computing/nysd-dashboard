@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<h4>Welcome to the Nanyang System Developers Dashboard!</h4>
+
+<h2>Assignments for Classroom ({{ id }})</h2>
+{% if not assignments %}
+<p>No assignments here. Please check back later.</p>
+{% else %}
+<p>{{ assignments }}</p>
+{% endif %}
+{% endblock %}

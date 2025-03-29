@@ -1,10 +1,21 @@
 .navbar {
   background-color: var(--bs-red);
-  margin-bottom: 8px;
+}
+
+.classrooms {
+  margin-top: 10px;
 }
 
 .logo {
   color: var(--bs-light);
   font-weight: bold;
   margin-left: 8px;
+  text-decoration: none;
+}
+
+.classBlock {
+  border-style: solid;
+  border-width: .5px;
+  border-radius: 5px;
+  box-shadow: 5px 8px rgba(10, 10, 10, .15);
 }
