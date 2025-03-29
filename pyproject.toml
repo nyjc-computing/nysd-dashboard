@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "nysd_followers"
+name = "nysd-dashboard"
 version = "0.1.0"
 description = ""
 authors = ["Matthew Na <NA HOU BOON MATTHEW <na.hou.boon.matthew_2025@nyjc.edu.sg>>"]
@@ -8,6 +8,7 @@ authors = ["Matthew Na <NA HOU BOON MATTHEW <na.hou.boon.matthew_2025@nyjc.edu.s
 python = ">=3.11.0,<3.12"
 flask = "^3.0.0"
 gunicorn = "^21.2.0"
+requests = "^2.32.3"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
