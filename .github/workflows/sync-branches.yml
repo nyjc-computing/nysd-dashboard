@@ -1,0 +1,39 @@
+name: Sync Branches with Main
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branches: [dev]  # Add new branches here
+    steps:
+      - name: Checkout Main Branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git User
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+
+      - name: Sync with ${{ matrix.branch }}
+        run: |
+          TARGET_BRANCH="${{ matrix.branch }}"
+          git checkout $TARGET_BRANCH
+          git pull origin $TARGET_BRANCH || echo "No changes to pull for $TARGET_BRANCH"
+          git reset --hard origin/main
+          git merge --squash origin/main || echo "No changes to merge for $TARGET_BRANCH"
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Squash merge changes from main into $TARGET_BRANCH"
+            git push origin $TARGET_BRANCH || echo "Failed to push $TARGET_BRANCH"
+          fi
+          git reset --hard main
+          git push origin $TARGET_BRANCH --force || echo "Failed to force push $TARGET_BRANCH"
