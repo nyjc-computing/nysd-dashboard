@@ -8,6 +8,9 @@
 <h2>Assignments for Classroom ({{ id }})</h2>
 {% if not assignments %}
 <p>No assignments here. Please check back later.</p>
+{% elif "error" in assignments %}
+<p>{{ assignments["error"] }}</p>
+
 {% else %}
 <!-- List assignments -->
 
