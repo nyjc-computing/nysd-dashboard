@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home Page{% endblock %}
+{% block title %}Classroom{% endblock %}
 
 {% block content %}
 <h4>Welcome to the Nanyang System Developers Dashboard!</h4>
@@ -9,6 +9,19 @@
 {% if not assignments %}
 <p>No assignments here. Please check back later.</p>
 {% else %}
-<p>{{ assignments }}</p>
+<!-- List assignments -->
+
+{% for assignment in assignments %}
+<div class="container pb-2 classBlock">
+  <div class="container p-0 pt-2 pb-2">
+    <h5 style="font-weight: bold; display: inline;">{{ assignment["title"] }}</h5>
+    <p class="text-secondary" style="display: inline;">(ID: {{ assignment["id"] }})</p>
+  </div>
+
+  <div>Accepted: {{ assignment["accepted"]}} </div>
+  <div>Submitted: {{ assignment["submitted"]}}</div>
+</div>
+{% endfor %}
+
 {% endif %}
 {% endblock %}

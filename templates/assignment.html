@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Classroom{% endblock %}
+
+{% block content %}
+<h4>Welcome to the Nanyang System Developers Dashboard!</h4>
+
+<h2>Details for Assignment (ID: {{ assignment_id }})</h2>
+
+<!-- Something went wrong -->
+{% if "error" in accepted %}
+<p>An error occurred. Wrong assignment ID?</p>
+{% else %}
+<!-- List details for accepted assignments -->
+
+<div class="column">
+  {% for item in accepted %}
+  {% set student = item["students"][0] %}
+  {% set repository = item["repository"] %}
+  <div class="container pb-2 classBlock">
+    <div class="container p-0 pt-2 pb-2">
+      <h5 style="font-weight: bold; display: inline;">Owner: {{ student["login"] }}</h5>
+    </div>
+
+    <div>Repository: {{ repository["full_name"]}} </div>
+    <div>Finished: {{ finished[student["login"]] }}</div>
+    <div>URL: {{ repository["html_url"] }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}
