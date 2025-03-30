@@ -5,6 +5,6 @@
 			"version": "3.11"
 		}
 	},
-	"postCreateCommand": "pip install poetry && poetry install",
+	"postCreateCommand": "pip install poetry && poetry self add poetry-plugin-shell && poetry install --no-root",
 	"postStartCommand": "npx vscode-tasks run poetry-activate-venv"
 }
