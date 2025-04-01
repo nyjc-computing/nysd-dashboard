@@ -5,7 +5,8 @@
 {% block content %}
 <h4>Welcome to the Nanyang System Developers Dashboard!</h4>
 
-<h2>Assignments for Classroom ({{ id }})</h2>
+<h2>Assignments for "{{"NULL" if "error" in assignments else assignments[0]["classroom"]["name"] }}"
+  ({{ id }})</h2>
 {% if not assignments %}
 <p>No assignments here. Please check back later.</p>
 {% elif "error" in assignments %}
@@ -13,16 +14,18 @@
 
 {% else %}
 <!-- List assignments -->
-
 {% for assignment in assignments %}
+
 <div class="container pb-2 classBlock">
   <div class="container p-0 pt-2 pb-2">
-    <h5 style="font-weight: bold; display: inline;">{{ assignment["title"] }}</h5>
-    <p class="text-secondary" style="display: inline;">(ID: {{ assignment["id"] }})</p>
+    <a href="/assignments/{{ assignment['id' ]}}">
+      <h5 style="font-weight: bold; display: inline;">{{ assignment["title"] }}</h5>
+      <p class="text-secondary" style="display: inline;">(ID: {{ assignment["id"] }})</p>
+    </a>
   </div>
 
   <div>Accepted: {{ assignment["accepted"]}} </div>
-  <div>Submitted: {{ assignment["submitted"]}}</div>
+  <div>Submitted: {{ assignment["submissions"] }}</div>
 </div>
 {% endfor %}
 

@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Classroom{% endblock %}
+{% block title %}Assignment{% endblock %}
 
 {% block content %}
 <h4>Welcome to the Nanyang System Developers Dashboard!</h4>
 
-<h2>Details for Assignment (ID: {{ assignment_id }})</h2>
+<div style="display: flex; align-items: center; column-gap: 5px;">
+  <h2 style="display: inline;">Details for "{{ assignment_details["title"] }}" (ID: {{
+    assignment_details["id"] }})</h2>
+  <a href="/classrooms/{{ assignment_details['classroom']['id'] }}" style="display: inline;"
+    class="btn btn-danger">Back</a>
+</div>
 
 <!-- Something went wrong -->
 {% if "error" in accepted %}
@@ -13,18 +18,19 @@
 {% else %}
 <!-- List details for accepted assignments -->
 
-<div class="column">
+<div class="column mt-3">
   {% for item in accepted %}
   {% set student = item["students"][0] %}
   {% set repository = item["repository"] %}
   <div class="container pb-2 classBlock">
     <div class="container p-0 pt-2 pb-2">
       <h5 style="font-weight: bold; display: inline;">Owner: {{ student["login"] }}</h5>
+      <a target="_blank" href="{{ repository['html_url'] }}"><span style="font-size: 18px;"
+          class="material-symbols-outlined">open_in_new</span></a>
     </div>
 
-    <div>Repository: {{ repository["full_name"]}} </div>
-    <div>Finished: {{ finished[student["login"]] }}</div>
-    <div>URL: {{ repository["html_url"] }}</div>
+    <div>Repo: {{ repository["full_name"]}} </div>
+    <div>Finished: {{ "Yes" if finished[student["login"]] else "No" }}</div>
   </div>
   {% endfor %}
 </div>

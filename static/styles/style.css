@@ -20,3 +20,11 @@
   box-shadow: 5px 8px rgba(10, 10, 10, .15);
   margin-bottom: 20px;
 }
+
+a {
+  text-decoration: none !important;
+}
+
+.btn {
+  color: white;
+}
