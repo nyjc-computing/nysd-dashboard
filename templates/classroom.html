@@ -5,7 +5,7 @@
 {% block content %}
 <h4>Welcome to the Nanyang System Developers Dashboard!</h4>
 
-<h2>Assignments for "{{"NULL" if "error" in assignments else assignments[0]["classroom"]["name"] }}"
+<h2>Assignments for "{{"NULL" if "error" in assignments or not assignments else assignments[0]["classroom"]["name"] }}"
   ({{ id }})</h2>
 {% if not assignments %}
 <p>No assignments here. Please check back later.</p>

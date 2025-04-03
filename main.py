@@ -27,6 +27,7 @@ def get_resources(url: str, params=None) -> JsonDict | list[JsonDict]:
     else:
         return {"error": "There was an error when fetching resources: " + str(resp.status_code) + " " + resp.reason}
 
+
 def get_finished(accepted: list[JsonDict]) -> JsonDict:
     '''Given the accepted JSON returned by GitHub's API,
     returns a dictionary containing a boolean value based on whether
@@ -47,22 +48,29 @@ def get_finished(accepted: list[JsonDict]) -> JsonDict:
     return finished
 
 # Error page
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 # Home page
+
+
 @app.route('/')
 def index():
     classrooms = get_resources("https://api.github.com/classrooms")
     return render_template("home.html", classrooms=classrooms)
 
 # Classrooms page
+
+
 @app.route('/classrooms/<int:classroomId>')
 def classroom(classroomId):
     assignments = get_resources(
         f"https://api.github.com/classrooms/{classroomId}/assignments")
     return render_template("classroom.html", id=classroomId, assignments=assignments)
+
 
 @app.route('/assignments/<int:assignmentId>')
 def assignment(assignmentId):
@@ -70,6 +78,13 @@ def assignment(assignmentId):
         f"https://api.github.com/assignments/{assignmentId}")
     accepted = get_resources(
         f"https://api.github.com/assignments/{assignmentId}/accepted_assignments")
+    # get_resources() will try and request a response to the URL specified.
+    # if an error occurred, get_resources() will return a JSON with a key-value pair:
+    # {"error": <error message>}
+
+    # We need to check whether the request was valid or invalid, by checking for this
+    # "error" key. If it exists, an error occurred.
+
     if "error" in accepted:
         return render_template("assignment.html", accepted=accepted, assignment_id=assignmentId)
     finished = get_finished(accepted)
