@@ -35,20 +35,15 @@ def get_finished(accepted: list[JsonDict]) -> JsonDict:
     for assignment in accepted:
         studentName = assignment['students'][0]['login']
         repository = assignment['repository']['full_name']
-
-        # gets pull requests
         closed_pull_requests = get_resources(
             f'https://api.github.com/repos/{repository}/pulls',
             {"state": "closed"}
         )
-
-        """This function filters all pull requests for ones with title "Feedback", and
-    checks for its existence in the CLOSED pull requests."""
-        if next(filter(lambda item: item["title"] == "Feedback", closed_pull_requests), None):
-            finished[studentName] = True
-        else:
-            finished[studentName] = False
-
+        # Check if there's a closed PR named "Feedback"
+        finished[studentName] = any(
+            item["title"] == "Feedback"
+            for item in closed_pull_requests
+        )
     return finished
 
 # Error page
