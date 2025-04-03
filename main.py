@@ -1,13 +1,16 @@
 import os
+from typing import Any
 
 import requests
 from flask import Flask, render_template
+
+JsonDict = dict[str, Any]
 
 NYCOMP_PAT = os.environ.get("GH_PAT")
 app = Flask(__name__)
 
 
-def get_resources(url: str, params=None) -> dict | list[dict]:
+def get_resources(url: str, params=None) -> JsonDict | list[JsonDict]:
     """Given a URL to be accessed,
     uses personal access token stored in GH_PAT to send a request and recieve a response.
     If request was successful, returns the JSON, else returns JSON with an error message."""
@@ -25,7 +28,7 @@ def get_resources(url: str, params=None) -> dict | list[dict]:
         return {"error": "There was an error when fetching resources: " + str(resp.status_code) + " " + resp.reason}
 
 
-def get_finished(accepted: list[dict]) -> dict:
+def get_finished(accepted: list[JsonDict]) -> JsonDict:
     '''Given the accepted JSON returned by GitHub's API,
     returns a dictionary containing a boolean value based on whether
     the student's Feedback pull request is closed.'''
