@@ -27,7 +27,6 @@ def get_resources(url: str, params=None) -> JsonDict | list[JsonDict]:
     else:
         return {"error": "There was an error when fetching resources: " + str(resp.status_code) + " " + resp.reason}
 
-
 def get_finished(accepted: list[JsonDict]) -> JsonDict:
     '''Given the accepted JSON returned by GitHub's API,
     returns a dictionary containing a boolean value based on whether
@@ -64,30 +63,21 @@ def index():
     return render_template("home.html", classrooms=classrooms)
 
 # Classrooms page
-
-
 @app.route('/classrooms/<int:classroomId>')
 def classroom(classroomId):
-
     assignments = get_resources(
         f"https://api.github.com/classrooms/{classroomId}/assignments")
-
     return render_template("classroom.html", id=classroomId, assignments=assignments)
-
 
 @app.route('/assignments/<int:assignmentId>')
 def assignment(assignmentId):
     details = get_resources(
         f"https://api.github.com/assignments/{assignmentId}")
-
     accepted = get_resources(
         f"https://api.github.com/assignments/{assignmentId}/accepted_assignments")
-
     if "error" in accepted:
         return render_template("assignment.html", accepted=accepted, assignment_id=assignmentId)
-
     finished = get_finished(accepted)
-
     return render_template(
         "assignment.html",
         assignment_details=details,
