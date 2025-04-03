@@ -59,7 +59,7 @@ def page_not_found(e):
 @app.route('/')
 def index():
     classrooms = get_resources("https://api.github.com/classrooms")
-    return render_template("home.html", crs=classrooms)
+    return render_template("home.html", classrooms=classrooms)
 
 # Classrooms page
 
