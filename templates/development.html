@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Development{% endblock %}
+
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      {% for cell in values[0] %}
+      <th>{{ cell }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for row in values[1:] %}
+    <tr>
+      {% for cell in row %}
+      {% if cell in ["Completed", "Uncompleted"] %}
+      <td> <span class="material-symbols-outlined">{{ "Check" if cell == "Completed" else "Close" }}</span></td>
+      {% else %}
+      <td>{{ cell }}</td>
+      {% endif %}
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+
+{% endblock %}
