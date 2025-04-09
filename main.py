@@ -13,7 +13,7 @@ JsonDict = dict[str, Any]
 NYCOMP_PAT = os.environ.get("GH_PAT")
 # Typo is intentional; when key is renamed, will change this too
 SERVICE_ACCOUNT_JSON = json.loads(
-    os.environ.get('GOOGLE_SEVICE_ACCOUNT')
+    os.environ['GOOGLE_SEVICE_ACCOUNT']
 )
 
 credentials = service_account.Credentials.from_service_account_info(
@@ -22,8 +22,16 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 
 # Refresh token before assigning it to access_token
-credentials.refresh(Request())
-access_token = credentials.token
+
+
+def get_access_token():
+    '''
+    Refreshes the credentials and returns the token generated\n
+    from the credential.
+    '''
+    credentials.refresh(Request())
+    return credentials.token
+
 
 spreadsheetId = "11qiZH2TYsOXbe1DwBFTaY-ndjG8TNr7UoX3UOsuR9yY"
 
@@ -57,6 +65,9 @@ def GH_get_resources(url: str, params=None) -> JsonDict | list[JsonDict]:
         return {"error": "There was an error when fetching resources: " + str(resp.status_code) + " " + resp.reason}
 
 # ------------ THIS IS FOR GOOGLE SHEETS API. (we can make a class for this.) ------------
+
+
+access_token = get_access_token()
 
 
 def GS_make_request(url: str, method="GET", data=None) -> JsonDict | list[JsonDict]:
